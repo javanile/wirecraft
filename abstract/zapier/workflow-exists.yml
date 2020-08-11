@@ -1,5 +1,5 @@
 ---
-abstract: workflow-exists
+abstract: zapier/workflow-exists
 
 instance:
 
@@ -9,5 +9,3 @@ instructions:
     args:
       -
     expected:
-
-

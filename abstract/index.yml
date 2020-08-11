@@ -1,0 +1,13 @@
+---
+abstract: index
+
+default:
+  resources: []
+  platform_type: (@input platform_type)
+
+validator:
+  resources:
+    mandatory: true
+
+resolve:
+  resources: (@abstract resource)

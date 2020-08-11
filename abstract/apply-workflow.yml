@@ -1,5 +1,5 @@
-
-
+---
+abstract: apply-workflow
 
 instructions:
   - name: check-if-workflow-exists

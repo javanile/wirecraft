@@ -1,5 +1,4 @@
 ---
-
 abstract: resource
 
 interface: @self type

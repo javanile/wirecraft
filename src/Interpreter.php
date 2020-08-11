@@ -24,8 +24,8 @@ class Interpreter
         $abstractRules = Yaml::parseFile($abstractFile);
         $code = Yaml::parseFile($file);
 
-        var_dump($abstractRules);
-        var_dump($code);
+        //var_dump($abstractRules);
+        //var_dump($code);
 
         $this->code = array_merge($this->code, $code);
     }

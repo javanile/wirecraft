@@ -6,6 +6,8 @@ use Javanile\Wirecraft\Interpreter;
 
 $interpreter = new Interpreter(__DIR__.'/abstract');
 
-$interpreter->loadFile(__DIR__.'/files/test.yml', 'default');
+$interpreter->loadFile(__DIR__.'/files/test.yml', 'index');
 
-var_dump($interpreter->dump());
+foreach ($interpreter->dump()['resources'] as $resource) {
+
+}
