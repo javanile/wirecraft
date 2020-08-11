@@ -1,0 +1,9 @@
+---
+
+abstract: default
+
+default:
+  platform_type: @input platform_type
+
+resolve:
+  resources: @abstract resource

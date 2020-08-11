@@ -1,0 +1,8 @@
+---
+
+abstract: resource
+
+interface: @self type
+
+implement: @parent platform_type
+

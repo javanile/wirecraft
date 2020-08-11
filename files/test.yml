@@ -1,0 +1,19 @@
+---
+
+name: Test
+version: 1
+
+:
+  zapier:
+    type: platform
+    auth: Zapier
+
+  workflow1:
+    type: workflow
+    tasks:
+      -
+
+
+
+
+
