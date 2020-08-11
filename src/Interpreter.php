@@ -24,10 +24,17 @@ class Interpreter
         $abstractRules = Yaml::parseFile($abstractFile);
         $code = Yaml::parseFile($file);
 
+        $this->processValidator($file, $code, $abstractRules['validator']);
+
         //var_dump($abstractRules);
         //var_dump($code);
 
         $this->code = array_merge($this->code, $code);
+    }
+
+    public function processValidator()
+    {
+
     }
 
     public function dump()

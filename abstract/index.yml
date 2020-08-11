@@ -10,4 +10,5 @@ validator:
     mandatory: true
 
 resolve:
-  resources: (@abstract resource)
+  resources:
+    abstract: resource

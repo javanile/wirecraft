@@ -1,7 +1,5 @@
 ---
 abstract: resource
 
-interface: @self type
-
-implement: @parent platform_type
-
+implement:
+  abstract: resources/(@self )
