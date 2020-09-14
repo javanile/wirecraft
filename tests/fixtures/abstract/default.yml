@@ -1,0 +1,8 @@
+---
+abstract: default
+
+default:
+  static-value: "Hello World!"
+  self-value: (@self static-value)
+
+

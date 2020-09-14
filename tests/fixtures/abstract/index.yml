@@ -5,7 +5,7 @@ default:
   resources: []
   platform_type: (@input platform_type)
 
-validator:
+validate:
   resources:
     mandatory: true
 

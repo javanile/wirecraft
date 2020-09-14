@@ -9,7 +9,12 @@ class Interpreter
     /**
      * @var array
      */
-    protected $code;
+    protected $manifest;
+
+    /**
+     *
+     */
+    protected $filesCache;
 
     /**
      * @var
@@ -28,7 +33,8 @@ class Interpreter
      */
     public function __construct($abstractPath)
     {
-        $this->code = [];
+        $this->manifest = [];
+        $this->filesCache = [];
         $this->abstractPath = $abstractPath;
     }
 
@@ -38,25 +44,33 @@ class Interpreter
      */
     public function readFile($file, $abstractName)
     {
-        $code = Yaml::parseFile($file);
-        $abstract = $this->loadAbstract($abstractName);
+        $file = realpath($file);
+
+        $manifest = $this->loadFileFromCache($file);
+        $abstract = $this->loadAbstractFromCache($abstractName);
 
         if (isset($abstract['default'])) {
-            $this->processValidator($file, $code, $abstract['default']);
+            $manifest = $this->processDefault($manifest, $abstract, $file);
         }
 
-        if (isset($abstract['validator'])) {
-            $this->processValidator($file, $code, $abstract['validator']);
+        if (isset($abstract['validate'])) {
+            $manifest = $this->processValidate($manifest, $abstract, $file);
         }
 
-        /*if (isset($abstractRules['validator'])) {
-            $this->processValidator($file, $code, $abstractRules['validator']);
-        }*/
+        if (isset($abstract['resolve'])) {
+            $manifest = $this->processResolve($manifest, $abstract, $file);
+        }
 
-        //var_dump($abstractRules);
-        //var_dump($code);
+        $this->manifest = array_replace_recursive($this->manifest, $manifest);
+    }
 
-        $this->code = array_merge($this->code, $code);
+    /**
+     * @param $file
+     * @return mixed
+     */
+    protected function loadFileFromCache($file)
+    {
+        return Yaml::parseFile($file);
     }
 
     /**
@@ -64,7 +78,7 @@ class Interpreter
      * @param $abstractName
      * @return mixed
      */
-    public function loadAbstract($abstractName)
+    public function loadAbstractFromCache($abstractName)
     {
         if (empty($this->abstractList[$abstractName])) {
             $abstractFile = $this->abstractPath.'/'.$abstractName.'.yml';
@@ -75,13 +89,45 @@ class Interpreter
     }
 
     /**
+     * @param $manifest
+     * @param $abstract
+     * @param $file
+     */
+    public function processDefault($manifest, $abstract, $file)
+    {
+        foreach ($abstract['default'] as $key => $value) {
+            if (empty($manifest[$key])) {
+                $manifest[$key] = $value;
+            }
+        }
+
+        return $manifest;
+    }
+
+    /**
      * @param $file
      * @param $code
      * @param $validators
      */
-    public function processValidator($file, $code, $validators)
+    public function processValidate($manifest, $abstract, $file)
     {
 
+    }
+
+    /**
+     * @param $manifest
+     * @param $abstract
+     * @param $file
+     */
+    public function processResolve($manifest, $abstract, $file)
+    {
+        foreach ($abstract['resolve'] as $key => $value) {
+            if (empty($manifest[$key])) {
+                $manifest[$key] = $value;
+            }
+        }
+
+        return $manifest;
     }
 
     /**
@@ -89,6 +135,6 @@ class Interpreter
      */
     public function dump()
     {
-        return $this->code;
+        return $this->manifest;
     }
 }
